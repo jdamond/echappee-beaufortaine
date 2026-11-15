@@ -34,6 +34,9 @@ h1{font:700 clamp(40px,min(15vw,13vh),190px)/.9 var(--display);text-transform:up
 .dates{font:500 clamp(19px,min(5vw,4.2vh),38px) var(--mono);letter-spacing:.04em;font-variant-numeric:tabular-nums;
   border-block:1.5px solid var(--ink);padding-block:.3em;white-space:nowrap}
 .tease{font:italic clamp(18px,min(5vw,3.4vh),30px)/1.3 var(--body);margin:0;max-width:30ch;text-wrap:balance}
+.facts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font:400 clamp(13px,min(3.7vw,2.3vh),16px)/1.35 var(--mono)}
+.facts li{display:grid;grid-template-columns:5.2em minmax(0,1fr);gap:0 12px;align-items:baseline}
+.facts .label{font-size:.82em}
 /* The picture always gets enough height to show the summit; it grows to fill what is left. */
 .art{flex:1 0 min(40vw,45vh);min-height:160px;width:100%;display:block}
 /* Wide screens: title on one line, dates and phrase side by side, so the picture keeps its height. */
@@ -42,7 +45,10 @@ h1{font:700 clamp(40px,min(15vw,13vh),190px)/.9 var(--display);text-transform:up
   h1 br{display:none}
   .row{flex-direction:row;align-items:center;gap:8px clamp(18px,3vw,44px);flex-wrap:wrap}
   .tease{max-width:none}
-  .art{flex-basis:min(40vw,64vh)}
+  .text{padding-top:clamp(12px,3vh,40px);gap:clamp(6px,1.7vh,20px)}
+  .facts{flex-direction:row;flex-wrap:wrap;gap:6px clamp(20px,3.4vw,56px)}
+  .facts li{display:flex;flex-direction:column;gap:2px}
+  .art{flex-basis:min(40vw,62vh)}
 }
 /* Very wide, short screens (a phone on its side): the picture fills the screen and the text sits in the sky. */
 @media (min-aspect-ratio:2/1){
@@ -52,6 +58,8 @@ h1{font:700 clamp(40px,min(15vw,13vh),190px)/.9 var(--display);text-transform:up
   .row{flex-direction:column;align-items:flex-start;gap:clamp(6px,2vh,18px)}
   .dates{font-size:clamp(16px,min(2.4vw,5.5vh),34px)}
   .tease{max-width:24ch;font-size:clamp(15px,min(2vw,5vh),26px)}
+  .facts{flex-direction:column;gap:3px;max-width:34vw;font-size:clamp(11px,min(1.5vw,3.6vh),15px)}
+  .facts li{display:grid;grid-template-columns:5.2em minmax(0,1fr)}
   .art{flex:1 0 0}
 }
 </style>
@@ -63,8 +71,13 @@ h1{font:700 clamp(40px,min(15vw,13vh),190px)/.9 var(--display);text-transform:up
     <span class="dates">5–8 August 2027</span>
     <p class="tease">Hou je agenda vrij en je benen fris. De rest volgt.</p>
   </div>
+  <ul class="facts">
+    <li><span class="label">Where</span><span>Beaufort, Savoie</span></li>
+    <li><span class="label">Format</span><span>4-day stage run</span></li>
+    <li><span class="label">Routes</span><span>Long line or short line. You choose each day.</span></li>
+  </ul>
 </div>
-<svg class="art" id="art" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Gelaagde bergkammen met besneeuwde toppen, dennenbos en een bergbeek"></svg>
+<svg class="art" id="art" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Gelaagde bergkammen met besneeuwde toppen, dennenbos en een bergbeek"></svg>
 
 <script>
 (function(){
