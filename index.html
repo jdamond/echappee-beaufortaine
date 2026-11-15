@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>L'Échappée Beaufortaine</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one screen. Poster title top-left, dates under it, ridge line filling the bottom. */
+:root{
+  --paper:#f6f7f7; --ink:#101214; --mute:#5b6266;
+  --m1:#e2e5e6; --m2:#b9bec0; --m3:#70777a; --m4:#101214; --snow:#ffffff; --river:#f6f7f7;
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121416; --ink:#eceeee; --mute:#9aa1a4;
+  --m1:#3b4144; --m2:#2b2f32; --m3:#1c1f21; --m4:#000000; --snow:#eceeee; --river:#c5cacc; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#121416; --ink:#eceeee; --mute:#9aa1a4;
+  --m1:#3b4144; --m2:#2b2f32; --m3:#1c1f21; --m4:#000000; --snow:#eceeee; --river:#c5cacc; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);display:flex;flex-direction:column;min-height:560px;-webkit-text-size-adjust:100%}
+.text{display:flex;flex-direction:column;gap:clamp(14px,2.4vh,26px);padding-block:clamp(28px,7vh,80px) 0;
+  padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));
+  width:100%;max-width:1120px;margin:0 auto}
+.label{font:500 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+h1{font:700 clamp(44px,15vw,190px)/.9 var(--display);text-transform:uppercase;letter-spacing:-.01em;margin:0}
+.dates{font:500 clamp(20px,3.6vw,40px) var(--mono);letter-spacing:.04em;font-variant-numeric:tabular-nums;
+  align-self:flex-start;border-block:1.5px solid var(--ink);padding-block:10px}
+.tease{font:italic clamp(20px,2.6vw,30px)/1.3 var(--body);margin:0;max-width:30ch;text-wrap:balance}
+.art{flex:1 1 0;min-height:200px;width:100%;display:block;margin-top:-2%}
+</style>
+
+<div class="text">
+  <span class="label">Save the date</span>
+  <h1>L'Échappée<br>Beaufortaine</h1>
+  <span class="dates">5–8 August 2027</span>
+  <p class="tease">Hou je agenda vrij en je benen fris. De rest volgt.</p>
+</div>
+<svg class="art" id="art" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Gelaagde bergkammen met besneeuwde toppen, dennenbos en een bergbeek"></svg>
+
+<script>
+(function(){
+  let s=7; const rnd=()=>(s=(s*16807)%2147483647)/2147483647;
+  const ridge=(base,amp,k,jit)=>{let d="M0 520";for(let x=0;x<=1200;x+=20){const y=base-amp*(.5*Math.sin(x*.004+k)+.3*Math.sin(x*.011+2*k)+.2*Math.sin(x*.027+3*k))-jit*rnd();d+=` L${x} ${y.toFixed(1)}`}return d+" L1200 520Z"};
+  const mb=[[0,335],[80,305],[150,322],[230,268],[300,290],[380,222],[430,240],[500,165],[548,132],[610,96],[668,118],[720,104],[770,150],[830,138],[880,196],[950,178],[1010,236],[1080,224],[1140,270],[1200,258]];
+  const mbD="M0 520 "+mb.map(p=>`L${p[0]} ${p[1]}`).join(" ")+" L1200 520Z";
+  let snow="M200 0 L1100 0 L1100 210";for(let x=1070,i=0;x>=200;x-=30,i++)snow+=` L${x} ${(i%2?222:190)+rnd()*16|0}`;snow+="Z";
+  const yF=x=>408-26*Math.sin(x/170+1)+26*Math.exp(-(((x-660)/95)**2));
+  let fg="M0 520";for(let x=0;x<=1200;x+=15)fg+=` L${x} ${yF(x).toFixed(1)}`;fg+=" L1200 520Z";
+  let trees="";for(let x=6;x<1200;x+=10+rnd()*20){if(x>596&&x<728)continue;const h=18+rnd()*34,w=h*.24,y=yF(x)+5;
+    trees+=`M${x} ${y-h} L${x-w*.55} ${y-h*.62} L${x-w*.25} ${y-h*.62} L${x-w*.8} ${y-h*.3} L${x-w*.35} ${y-h*.3} L${x-w} ${y} L${x+w} ${y} L${x+w*.35} ${y-h*.3} L${x+w*.8} ${y-h*.3} L${x+w*.25} ${y-h*.62} L${x+w*.55} ${y-h*.62}Z `}
+  const river="M655 430 C632 448 700 458 664 478 C628 496 566 500 540 520 L650 520 C660 504 704 496 716 474 C728 452 664 446 664 430Z";
+  document.getElementById("art").innerHTML=
+   `<defs><clipPath id="mbc"><path d="${mbD}"/></clipPath></defs>
+    <path d="${mbD}" fill="var(--m1)" stroke="var(--m3)" stroke-width="1"/>
+    <path d="${snow}" fill="var(--snow)" clip-path="url(#mbc)"/>
+    <path d="${ridge(330,60,1.3,14)}" fill="var(--m2)"/>
+    <path d="${ridge(385,46,4.1,10)}" fill="var(--m3)"/>
+    <path d="${fg}" fill="var(--m4)"/><path d="${trees}" fill="var(--m4)"/>
+    <path d="${river}" fill="var(--river)"/>`;
+})();
+</script>
+
+</html>
